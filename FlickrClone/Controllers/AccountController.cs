@@ -20,6 +20,8 @@ namespace FlickrClone.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        public AccountController()
+        { }
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext db)
         {
             _userManager = userManager;
@@ -101,8 +103,6 @@ namespace FlickrClone.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             string userId = user.Id;
-                Debug.WriteLine(userId);
-            
             return View(user);
         }
     }
