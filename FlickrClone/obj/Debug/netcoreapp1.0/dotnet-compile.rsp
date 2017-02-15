@@ -203,8 +203,15 @@
 --resource:"C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\obj\Debug\netcoreapp1.0\FlickrClonedotnet-compile.deps.json",FlickrClone.deps.json
 C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Program.cs
 C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Startup.cs
-C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\20170215165701_Initial.cs
-C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\20170215165701_Initial.Designer.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Controllers\AccountController.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\20170215194123_FlickrTables.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\20170215194123_FlickrTables.Designer.cs
 C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\ApplicationDbContextModelSnapshot.cs
 C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Models\ApplicationDbContext.cs
 C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Models\ApplicationUser.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Models\Comment.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Models\Favorite_Tag.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Models\Photo.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Models\User_Tag.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\ViewModels\Login.cs
+C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\ViewModels\Register.cs

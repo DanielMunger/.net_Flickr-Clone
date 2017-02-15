@@ -13,6 +13,11 @@ namespace FlickrClone.Models
         {
             
         }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Favorite_Tag> Favorite_Tags { get; set; }
+        public DbSet<User_Tag> User_Tags { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
 

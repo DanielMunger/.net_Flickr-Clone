@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using FlickrClone.Models;
 using FlickrClone.ViewModels;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 
 
@@ -24,9 +26,16 @@ namespace FlickrClone.Controllers
             _signInManager = signInManager;
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(ApplicationUser user)
         {
+            if(user != null)
+            {
+                return View(user);
+            }
+            else
+            {
             return View();
+            }
         }
 
         public IActionResult Register()
@@ -35,10 +44,21 @@ namespace FlickrClone.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(Register model)
+        public async Task<IActionResult> Register(string username, string email, IFormFile picture, string password)
         {
-            var user = new ApplicationUser { UserName = model.UserName };
-            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            byte[] pictureArray = new byte[0];
+            if(picture.Length > 0)
+            {
+                using (var fileStream = picture.OpenReadStream())
+                using (var ms = new MemoryStream())
+                {
+                    fileStream.CopyTo(ms);
+                    pictureArray = ms.ToArray();
+                }
+            }
+
+            var user = new ApplicationUser { UserName = username, Email = email, ProfilePicture = pictureArray };
+            IdentityResult result = await _userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
@@ -61,7 +81,8 @@ namespace FlickrClone.Controllers
 
             if(result.Succeeded)
             {
-                return RedirectToAction("Index");
+                var user = _userManager.GetUserAsync(User);
+                return View("Index", user);
             }
             else
             {
@@ -74,6 +95,15 @@ namespace FlickrClone.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> UserAccount()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            string userId = user.Id;
+                Debug.WriteLine(userId);
+            
+            return View(user);
         }
     }
     

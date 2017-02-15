@@ -8,8 +8,8 @@ using FlickrClone.Models;
 namespace FlickrClone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170215165701_Initial")]
-    partial class Initial
+    [Migration("20170215194123_FlickrTables")]
+    partial class FlickrTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,8 @@ namespace FlickrClone.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<byte[]>("ProfilePicture");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -64,6 +66,80 @@ namespace FlickrClone.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("UserId1");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.Favorite_Tag", b =>
+                {
+                    b.Property<int>("Favorite_TagId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PhotoId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Favorite_TagId");
+
+                    b.HasIndex("PhotoId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favorite_Tag");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.Photo", b =>
+                {
+                    b.Property<int>("PhotoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CommentId");
+
+                    b.Property<byte[]>("Image");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("PhotoId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.User_Tag", b =>
+                {
+                    b.Property<int>("User_TagId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("PhotoId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("User_TagId");
+
+                    b.HasIndex("PhotoId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Tag");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -171,6 +247,44 @@ namespace FlickrClone.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.Comment", b =>
+                {
+                    b.HasOne("FlickrClone.Models.ApplicationUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.Favorite_Tag", b =>
+                {
+                    b.HasOne("FlickrClone.Models.Photo", "Photo")
+                        .WithMany("Favorite_Tags")
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FlickrClone.Models.ApplicationUser", "User")
+                        .WithMany("Favorite_Tags")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.Photo", b =>
+                {
+                    b.HasOne("FlickrClone.Models.ApplicationUser", "User")
+                        .WithMany("Photos")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FlickrClone.Models.User_Tag", b =>
+                {
+                    b.HasOne("FlickrClone.Models.Photo", "Photo")
+                        .WithMany("User_Tags")
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FlickrClone.Models.ApplicationUser", "User")
+                        .WithMany("User_Tags")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

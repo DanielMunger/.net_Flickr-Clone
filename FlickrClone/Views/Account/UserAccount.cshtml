@@ -1,0 +1,18 @@
+﻿@model FlickrClone.Models.ApplicationUser
+@{ 
+    string Image = "";
+    if(Model.ProfilePicture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.ProfilePicture);
+        Image = String.Format("data:image/gif;base64,{0}", base64);
+
+    }
+
+}
+
+<div>
+    <img src="@Image" />
+    <p>hello</p>
+    @Html.DisplayFor(model => model.UserName)
+    @Html.DisplayFor(model => model.Email)
+</div>

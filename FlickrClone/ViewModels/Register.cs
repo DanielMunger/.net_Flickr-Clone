@@ -17,6 +17,9 @@ namespace FlickrClone.ViewModels
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Display(Name = "Profile Picture")]
+        public byte[] ProfilePicture { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
