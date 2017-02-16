@@ -17,5 +17,17 @@ namespace FlickrClone.Models
         public virtual Photo Photo { get; set; }
         public virtual ApplicationUser User { get; set; }
         public DateTime Date { get; set; }
+
+        public Comment()
+        {
+
+        }
+        public Comment(string content, int photoId)
+        {
+            Content = content;
+            PhotoId = photoId;
+            Date = DateTime.Now;
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FlickrClone.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
 
 namespace FlickrClone.Controllers
 {
@@ -20,20 +21,19 @@ namespace FlickrClone.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _db = db;
-        }
-        [HttpPost]
-        public async Task<IActionResult> Create(string commentContent, int photoId)
-        {
             
-            Comment Comment = new Comment();
-            Comment.Content = commentContent;
-            Comment.PhotoId = photoId;
-            Comment.Date = DateTime.Now;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(string content, int photoId)
+        {
+            Debug.WriteLine("content");          
+            Comment Comment = new Comment(content, photoId);
             Comment.User = await _userManager.GetUserAsync(User);
             _db.Comments.Add(Comment);
             _db.SaveChanges();
 
-            return View("/Photos/Details/photoId");
+            return RedirectToAction("Details", "Photos", new { id = photoId });
         }
     }
 }

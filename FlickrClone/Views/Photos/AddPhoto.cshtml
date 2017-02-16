@@ -2,11 +2,19 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model IEnumerable<FlickrClone.Models.ApplicationUser>
 
 <div class="container">
     <form method="post" asp-action="AddPhoto" asp-controller="Photos" enctype="multipart/form-data">
         <label for="picture">Add Picture</label>
         <input type="file" id="picture" required name="picture"/><br /><br />
+        <select multiple="multiple" name="taggedUsers[]" style="display:block">
+            @*<option value="null">Tag Friends In Photo</option>*@
+            @foreach(var user in Model)
+            {
+                <option value="@user.Id">@user.UserName</option>
+            }
+        </select>
         <input class="btn" type="submit" value="Add Photo"/>
     </form>
 </div>

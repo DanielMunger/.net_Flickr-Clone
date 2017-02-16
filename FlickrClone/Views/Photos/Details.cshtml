@@ -1,5 +1,5 @@
 ﻿@model FlickrClone.Models.Photo
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,9 +17,19 @@
     }
 
 }
-<form method="post" asp-action="Create" asp-controller="Comment" enctype="multipart/form-data">
-    <label for="comment">Talk some smack: </label>
-    <textarea type="text" id="comment" required name="comment"></textarea>
+<form method="post" asp-action="Create" asp-controller="Comment">
+    <label for="content">Talk some smack: </label>
+    <textarea type="text" id="content" required name="content"></textarea>
     <input type="hidden" value="@Model.PhotoId" name="photoId"/>
     <input class="btn" type="submit" value="Comment" />
 </form>
+@foreach(var comment in Model.Comments)
+{
+    <div class="commentBox">
+        <br />
+        <p>@comment.Content</p>
+        <p>By: @comment.User.UserName</p>
+        
+
+    </div>
+}

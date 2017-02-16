@@ -34,21 +34,28 @@ namespace FlickrClone.Controllers
         public IActionResult Details(int id)
         {
             
-            return View(_db.Photos.FirstOrDefault(photo => photo.PhotoId == id));
+            return View(_db.Photos
+                .Include(photo => photo.Comments)
+                .ThenInclude(comment => comment.User)
+                .FirstOrDefault(photo => photo.PhotoId == id));
         }
 
         public IActionResult AddPhoto()
         {
-            return View();
+            return View(_db.Users.ToList());
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhoto(IFormFile picture)
+        public async Task<IActionResult> AddPhoto(IFormFile picture, string[] taggedUser)
         {
-            var pictureArray = new byte[0];
-            if(picture.Length>0)
+            foreach(var user in taggedUser)
             {
-                using (var fileStream = picture.OpenReadStream()) 
+                Debug.WriteLine("this is a user " + user);
+            }
+            var pictureArray = new byte[0];
+            if (picture.Length > 0)
+            {
+                using (var fileStream = picture.OpenReadStream())
                 using (var ms = new MemoryStream())
                 {
                     fileStream.CopyTo(ms);
@@ -56,11 +63,25 @@ namespace FlickrClone.Controllers
                 }
                 Photo photo = new Photo(pictureArray);
                 var user = await _userManager.GetUserAsync(User);
-                //string userId = user.Id;
+
                 photo.User = user;
                 _db.Photos.Add(photo);
                 _db.SaveChanges();
+
+                //not working currently - can only tag one user with no for loop
+                if (taggedUser != null)
+                {
+                    foreach(var tagUser in taggedUser)
+                    {
+                       
+                        User_Tag user_tag = new User_Tag(tagUser, photo.PhotoId);
+                        _db.User_Tags.Add(user_tag);
+                        _db.SaveChanges();
+
+                    }
+                }
             }
+            
 
             return RedirectToAction("Index");
               
