@@ -1,0 +1,25 @@
+﻿@model FlickrClone.Models.Photo
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    string Image = "";
+    if (Model.Image != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Image);
+        Image = String.Format("data:image/gif;base64,{0}", base64);
+        <div class="card-image">
+            <img src='@Image' />
+        </div>
+    }
+
+}
+<form method="post" asp-action="Create" asp-controller="Comment" enctype="multipart/form-data">
+    <label for="comment">Talk some smack: </label>
+    <textarea type="text" id="comment" required name="comment"></textarea>
+    <input type="hidden" value="@Model.PhotoId" name="photoId"/>
+    <input class="btn" type="submit" value="Comment" />
+</form>

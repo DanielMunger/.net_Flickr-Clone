@@ -12,7 +12,19 @@
 
 <div>
     <img src="@Image" />
-    <p>hello</p>
     @Html.DisplayFor(model => model.UserName)
     @Html.DisplayFor(model => model.Email)
+
+    @foreach(var photo in ViewBag.userPhotos)
+    {
+        if (photo.Image != null)
+        {
+            var base64 = Convert.ToBase64String(photo.Image);
+            Image = String.Format("data:image/gif;base64,{0}", base64);
+            <div class="card-image">
+                <img src="@Image" />
+            </div>
+        }
+
+    }
 </div>

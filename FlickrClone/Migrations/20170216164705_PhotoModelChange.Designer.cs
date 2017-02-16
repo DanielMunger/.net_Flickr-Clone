@@ -8,8 +8,8 @@ using FlickrClone.Models;
 namespace FlickrClone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170215194123_FlickrTables")]
-    partial class FlickrTables
+    [Migration("20170216164705_PhotoModelChange")]
+    partial class PhotoModelChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,13 +77,15 @@ namespace FlickrClone.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("UserId");
+                    b.Property<int>("PhotoId");
 
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("PhotoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -110,8 +112,6 @@ namespace FlickrClone.Migrations
                 {
                     b.Property<int>("PhotoId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CommentId");
 
                     b.Property<byte[]>("Image");
 
@@ -251,9 +251,14 @@ namespace FlickrClone.Migrations
 
             modelBuilder.Entity("FlickrClone.Models.Comment", b =>
                 {
+                    b.HasOne("FlickrClone.Models.Photo", "Photo")
+                        .WithMany("Comments")
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("FlickrClone.Models.ApplicationUser", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FlickrClone.Models.Favorite_Tag", b =>

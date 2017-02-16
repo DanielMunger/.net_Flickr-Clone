@@ -13,10 +13,21 @@ namespace FlickrClone.Models
         [Key]
         public int PhotoId { get; set; }
         public byte[] Image { get; set; }
-        public int CommentId { get; set; }
+        
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual ICollection<User_Tag> User_Tags { get; set; }
         public virtual ICollection<Favorite_Tag> Favorite_Tags { get; set; }
+
+        public Photo(byte[] image)
+        {
+            Image = image;        
+        }
+
+        public Photo()
+        {
+
+        }
 
     }
 }

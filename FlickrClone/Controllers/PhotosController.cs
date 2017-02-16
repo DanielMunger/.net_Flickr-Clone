@@ -25,11 +25,45 @@ namespace FlickrClone.Controllers
             _userManager = userManager;
             _db = db;
         }
-
-        // GET: /<controller>/
         public IActionResult Index()
         {
+            ViewBag.Photos = _db.Photos.ToList();
             return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            
+            return View(_db.Photos.FirstOrDefault(photo => photo.PhotoId == id));
+        }
+
+        public IActionResult AddPhoto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPhoto(IFormFile picture)
+        {
+            var pictureArray = new byte[0];
+            if(picture.Length>0)
+            {
+                using (var fileStream = picture.OpenReadStream()) 
+                using (var ms = new MemoryStream())
+                {
+                    fileStream.CopyTo(ms);
+                    pictureArray = ms.ToArray();
+                }
+                Photo photo = new Photo(pictureArray);
+                var user = await _userManager.GetUserAsync(User);
+                //string userId = user.Id;
+                photo.User = user;
+                _db.Photos.Add(photo);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+              
         }
     }
 }

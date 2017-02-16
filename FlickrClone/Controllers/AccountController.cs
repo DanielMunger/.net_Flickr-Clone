@@ -83,7 +83,7 @@ namespace FlickrClone.Controllers
             if(result.Succeeded)
             {
                 var user = await _userManager.GetUserAsync(User);
-                return View("Index", user);
+                return RedirectToAction("Index", "Photos", user);
             }
             else
             {
@@ -102,7 +102,11 @@ namespace FlickrClone.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             string userId = user.Id;
+            var userPhotos = _db.Photos
+                .Where(photos => photos.User.Id == userId);                         
+            ViewBag.UserPhotos = userPhotos;
             return View(user);
+                
         }
     }
     
