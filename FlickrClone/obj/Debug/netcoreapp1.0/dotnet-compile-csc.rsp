@@ -200,6 +200,7 @@
 "C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Program.cs"
 "C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Startup.cs"
 "C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Controllers\AccountController.cs"
+"C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Controllers\PhotosController.cs"
 "C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\20170215194123_FlickrTables.cs"
 "C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\20170215194123_FlickrTables.Designer.cs"
 "C:\Users\epicodus\Documents\Visual Studio 2015\Projects\FlickrClone\src\FlickrClone\Migrations\ApplicationDbContextModelSnapshot.cs"
