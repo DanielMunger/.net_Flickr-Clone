@@ -34,8 +34,8 @@ namespace FlickrClone.Controllers
         public IActionResult Details(int id)
         {
             ViewBag.Tags = _db.User_Tags
-                .Include(join => join.User)
-                .Where(user_tag => user_tag.PhotoId == id);
+                .Include(join => join.User)//get the virtual user from the user_tag object
+                .Where(user_tag => user_tag.PhotoId == id);//where the photo id == current photo id
             
 
             return View(_db.Photos
