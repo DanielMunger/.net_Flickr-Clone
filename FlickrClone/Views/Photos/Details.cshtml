@@ -12,8 +12,14 @@
         var base64 = Convert.ToBase64String(Model.Image);
         Image = String.Format("data:image/gif;base64,{0}", base64);
         <div class="card-image">
-            <img src='@Image' />
+            <img height="300" width="300" src='@Image' />
         </div>
+        foreach(var taggedUser in ViewBag.Tags)
+        {
+           <h3>Tagged Friends: </h3>
+            <p>@taggedUser.User.UserName</p>
+
+        }
     }
 
 }

@@ -8,7 +8,7 @@
     <form method="post" asp-action="AddPhoto" asp-controller="Photos" enctype="multipart/form-data">
         <label for="picture">Add Picture</label>
         <input type="file" id="picture" required name="picture"/><br /><br />
-        <select multiple="multiple" name="taggedUsers[]" style="display:block">
+        <select multiple="multiple" name="taggedUsers" style="display:block">
             @*<option value="null">Tag Friends In Photo</option>*@
             @foreach(var user in Model)
             {

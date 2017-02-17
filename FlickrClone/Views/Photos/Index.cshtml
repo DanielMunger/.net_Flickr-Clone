@@ -16,7 +16,7 @@
             var base64 = Convert.ToBase64String(photo.Image);
             Image = String.Format("data:image/gif;base64,{0}", base64);
             <div class="card-image">
-                <img src='@Image' />
+                <img height="300" width="300" src='@Image' />
                 @Html.ActionLink("View Me", "Details", new { id = photo.PhotoId })
             </div>
         }

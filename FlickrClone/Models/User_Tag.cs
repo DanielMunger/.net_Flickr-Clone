@@ -33,9 +33,9 @@ namespace FlickrClone.Models
             PhotoId = photoId;
         }
 
-        public User_Tag(int photoid, int photoId) : this(photoid)
+        public User_Tag()
         {
-            this.PhotoId = photoId;
+            
         }
     }
 }

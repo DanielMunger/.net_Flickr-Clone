@@ -33,7 +33,11 @@ namespace FlickrClone.Controllers
 
         public IActionResult Details(int id)
         {
+            ViewBag.Tags = _db.User_Tags
+                .Include(join => join.User)
+                .Where(user_tag => user_tag.PhotoId == id);
             
+
             return View(_db.Photos
                 .Include(photo => photo.Comments)
                 .ThenInclude(comment => comment.User)
@@ -46,12 +50,9 @@ namespace FlickrClone.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPhoto(IFormFile picture, string[] taggedUser)
+        public async Task<IActionResult> AddPhoto(IFormFile picture, string[] taggedUsers)
         {
-            foreach(var user in taggedUser)
-            {
-                Debug.WriteLine("this is a user " + user);
-            }
+           
             var pictureArray = new byte[0];
             if (picture.Length > 0)
             {
@@ -68,10 +69,10 @@ namespace FlickrClone.Controllers
                 _db.Photos.Add(photo);
                 _db.SaveChanges();
 
-                //not working currently - can only tag one user with no for loop
-                if (taggedUser != null)
+               
+                if (taggedUsers != null)
                 {
-                    foreach(var tagUser in taggedUser)
+                    foreach(var tagUser in taggedUsers)
                     {
                        
                         User_Tag user_tag = new User_Tag(tagUser, photo.PhotoId);
